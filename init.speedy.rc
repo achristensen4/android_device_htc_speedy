@@ -65,18 +65,15 @@ service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
 #   we will start as root and wpa_supplicant will switch to user wifi
 #   after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
+    user wifi
+    group wifi inet keystore
     socket wpa_eth0 dgram 660 wifi wifi
-    disabled
     oneshot
 
 service dhcpcd /system/bin/dhcpcd -ABKL eth0
-    disabled
     oneshot
 
 service dhcpWimax /system/bin/dhcpcd -ABKL -f /etc/wimax/dhcp/wimaxDhcp.conf wimax0
-    disabled
     oneshot
 
 # compass/accelerometer daemon
@@ -86,33 +83,26 @@ service akmd /system/bin/akmd
 
 # bugreport is triggered by the KEY_VOLUMEUP and BTN_MOUSE keycodes
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
-    disabled
     oneshot
     keycodes 115 272
 
 service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
-    --baudrate 3000000 --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
     user bluetooth
     group bluetooth net_bt_admin
-    disabled
 
 
 
 service udhcpd /system/bin/udhcpd
-    disabled
     oneshot
 
 service netsharing_on /system/bin/netsharing net on
-    disabled
     oneshot
 
 service netsharing_off /system/bin/netsharing net off
-    disabled
     oneshot
 
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p13 /dev/block/mmcblk0p14
     user root
-    disabled
 
 service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
     user root
@@ -121,7 +111,6 @@ service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
 
 service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k
     user root
-        disabled
     oneshot
 
 on property:ro.build.tags=test-keys
@@ -137,49 +126,41 @@ service sequansd /system/bin/sequansd /etc/wimax/sequansd/sequansd_app.xml
     user root
     group root inet
     socket sequansd_0 dgram 660 root root
-    disabled
     oneshot
 
 service wimaxDhcpRelease /system/bin/wimaxDhcpRelease
     user root
     group root
-    disabled
     oneshot
 
 service wimaxDhcpRenew /system/bin/wimaxDhcpRenew
     user root
     group root
-    disabled
     oneshot
 
 service wimaxAddRoute /system/bin/wimaxAddRoute
     user root
     group root
-    disabled
     oneshot
 
 service wimaxDumpLogcat /system/bin/wimaxDumpLogcat /data/wimax/log
     user root
     group root
-    disabled
     oneshot
 
 service wimaxDumpKmsg /system/bin/wimaxDumpKmsg /data/wimax/log
     user root
     group root
-    disabled
     oneshot
 
 service wimaxDumpLastKmsg /system/bin/wimaxDumpLastKmsg /data/wimax/log
     user root
     group root
-    disabled
     oneshot
 
 service wmxCfgItf /system/bin/wimaxConfigInterface
     user root
     group root
-    disabled
     oneshot
 
 # wimax_mtd daemon
